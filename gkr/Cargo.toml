@@ -7,9 +7,6 @@ edition = "2021"
 arith = { path = "../arith" }
 config = { path = "../config" }
 circuit = { path = "../circuit" }
-gf2 = { path = "../arith/gf2" }
-gf2_128 = { path = "../arith/gf2_128" }
-mersenne31 = { path = "../arith/mersenne31" }
 polynomials = { path = "../arith/polynomials" }
 sumcheck = { path = "../sumcheck" }
 transcript = { path = "../transcript" }
@@ -18,7 +15,6 @@ ark-std.workspace = true
 clap.workspace = true
 env_logger.workspace = true
 log.workspace = true
-mpi.workspace = true
 rand.workspace = true
 sha2.workspace = true
 halo2curves.workspace = true
@@ -27,11 +23,18 @@ ethnum.workspace = true
 
 # for the server
 bytes.workspace = true
-tokio.workspace = true
-warp.workspace = true
 chrono.workspace = true
 tynm.workspace = true
 tiny-keccak.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+mpi.workspace = true
+# the methods below aren't supported on WASM
+gf2 = { path = "../arith/gf2" }
+gf2_128 = { path = "../arith/gf2_128" }
+mersenne31 = { path = "../arith/mersenne31" }
+tokio.workspace = true
+warp.workspace = true
 
 [dev-dependencies]
 criterion = "0.5.1"
