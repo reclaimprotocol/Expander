@@ -1,5 +1,6 @@
 use std::io::{Read, Write};
 use thiserror::Error;
+use std::mem::size_of;
 
 #[derive(Error, Debug)]
 pub enum FieldSerdeError {
@@ -42,7 +43,8 @@ macro_rules! field_serde_for_integer {
             fn deserialize_from<R: Read>(mut reader: R) -> FieldSerdeResult<Self> {
                 let mut buffer = [0u8; Self::SERIALIZED_SIZE];
                 reader.read_exact(&mut buffer)?;
-                Ok($int_type::from_le_bytes(buffer))
+
+                Ok($int_type::from_le_bytes(buffer[..size_of::<$int_type>()].try_into().unwrap()))
             }
 
             fn try_deserialize_from_ecc_format<R: Read>(_reader: R) -> FieldSerdeResult<Self> {
