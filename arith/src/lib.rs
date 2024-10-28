@@ -17,8 +17,5 @@ pub use serde::*;
 
 mod macros;
 
-mod benches;
-pub use benches::*;
-
 mod tests;
 pub use tests::*;
