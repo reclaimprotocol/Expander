@@ -1,8 +1,13 @@
 mod bn254_keccak;
 mod bn254_sha2;
+
+#[cfg(not(target_arch = "wasm32"))]
 mod gf2_ext_keccak;
+#[cfg(not(target_arch = "wasm32"))]
 mod gf2_ext_sha2;
+#[cfg(not(target_arch = "wasm32"))]
 mod m31_ext_keccak;
+#[cfg(not(target_arch = "wasm32"))]
 mod m31_ext_sha2;
 
 use std::fmt::Debug;
@@ -13,9 +18,14 @@ use transcript::FiatShamirHash;
 
 pub use bn254_keccak::BN254ConfigKeccak;
 pub use bn254_sha2::BN254ConfigSha2;
+
+#[cfg(not(target_arch = "wasm32"))]
 pub use gf2_ext_keccak::GF2ExtConfigKeccak;
+#[cfg(not(target_arch = "wasm32"))]
 pub use gf2_ext_sha2::GF2ExtConfigSha2;
+#[cfg(not(target_arch = "wasm32"))]
 pub use m31_ext_keccak::M31ExtConfigKeccak;
+#[cfg(not(target_arch = "wasm32"))]
 pub use m31_ext_sha2::M31ExtConfigSha2;
 
 #[derive(Debug, Clone, PartialEq)]

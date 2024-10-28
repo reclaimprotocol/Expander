@@ -1,8 +1,15 @@
 mod gkr_config;
 pub use gkr_config::*;
 
+#[cfg(not(target_arch = "wasm32"))]
 mod mpi_config;
+#[cfg(not(target_arch = "wasm32"))]
 pub use mpi_config::*;
+
+#[cfg(target_arch = "wasm32")]
+mod mpi_config_sync;
+#[cfg(target_arch = "wasm32")]
+pub use mpi_config_sync::*;
 
 use arith::Field;
 
