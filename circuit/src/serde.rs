@@ -172,11 +172,11 @@ impl<C: GKRConfig> FromEccSerde for Segment<C> {
     }
 }
 
-const VERSION_NUM: usize = 3914834606642317635; // b'CIRCUIT6'
+const VERSION_NUM: u64 = 3914834606642317635; // b'CIRCUIT6'
 
 impl<C: GKRConfig> FromEccSerde for RecursiveCircuit<C> {
     fn deserialize_from<R: Read>(mut reader: R) -> Self {
-        let version_num = <usize as FieldSerde>::deserialize_from(&mut reader).unwrap();
+        let version_num = <u64 as FieldSerde>::deserialize_from(&mut reader).unwrap();
         assert_eq!(version_num, VERSION_NUM);
         let expected_mod = <C::CircuitField as FieldForECC>::modulus();
         let mut field_mod = [0u8; 32];
